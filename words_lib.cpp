@@ -8,9 +8,9 @@ void WordsParser::parse(const string& s)
     size_t pos_start = 0, pos_end;
 
     while ((pos_end = s.find(m_delim, pos_start)) != string::npos) {
-        const string word = s.substr(pos_start, pos_end - pos_start);
+        string word = s.substr(pos_start, pos_end - pos_start);
         pos_start = pos_end + delim_len;
-        m_words.push_back(word);
+        m_words.push_back(move(word));
     }
 
     m_words.push_back(s.substr(pos_start));
@@ -71,7 +71,7 @@ void LongestRepeatableSequenceWord::print(ostream& out) const
 
 string LongestRepeatableSequenceWord::longest_repeated_substring(const string &str)
 {
-    // Dynamic Programming O(n2) solution from
+    // Dynamic Programming O(n^2) solution from
     // https://www.geeksforgeeks.org/longest-repeating-and-non-overlapping-substring/
     const size_t n = str.length();
     vector<vector<size_t>> LCSRe;
